@@ -1,0 +1,34 @@
+{% extends "home.html" %}
+
+
+
+{% block content %}
+
+
+
+{% if gagne %}
+<p>Bravo vous avez réussit 
+
+
+Vous avez gagné : 
+
+
+
+
+{{points}} points
+</p>
+{% else %}
+<p>malheuresement vous avez échoué
+
+
+    Vous avez perdu : 
+    
+    
+    
+    
+    {{points}} points
+    </p>
+{% endif %}
+
+<button><a href="{% url 'generer' %}">mission suivante</a></button>
+{% endblock %}

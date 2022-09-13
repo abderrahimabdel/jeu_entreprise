@@ -1,0 +1,29 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<h3>Liste des fournisseurs</h3>
+
+<a href="{% url 'creer-produit'%}">créer produit</a>
+
+<table>
+    <tr>
+        {% for label in labels %}
+            <th>{{label}}</th>
+        {% endfor %}
+        <th>modifier</th>
+        <th>supprimer</th>
+    </tr>
+    
+    {% for produit in produits %}
+        <tr>
+            {% for value in produit.get_values %}
+                <td>{{value}}</td>
+            {% endfor %}
+            <td><a href="{% url 'modifier-produit' produit %}">modifier</a></td>
+            <td><a href="{% url 'supprimer-produit' produit %}">supprimer</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'parametrage-gc' %}">Retour aux Paramètres</a>
+
+{% endblock content %}

@@ -1,0 +1,6 @@
+<form action="" method="post">
+    {% csrf_token %}
+    Voulez‑vous vraiment supprimer {{joueur}}
+    <a href="{{ request.META.HTTP_REFERER }}">revenir</a>
+    <input type="submit" value="oui">
+</form>

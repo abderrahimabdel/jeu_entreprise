@@ -1,0 +1,29 @@
+{% extends "home.html" %}
+
+
+
+{% block content %}
+
+
+<div style="float: right;">
+    <p>temps restant:</p>
+    <div id="temps"></div>
+</div>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>{{mission.question}}</p>
+    <input type="radio" id="op1" name="reponse" value="{{mission.op1}}">
+    <label for="op1">{{mission.op1}}</label><br>
+    <input type="radio" id="op2" name="reponse" value="{{mission.op2}}">
+    <label for="op2">{{mission.op2}}</label><br>
+    <input type="radio" id="op3" name="reponse" value="{{mission.op3}}">
+    <label for="op3">{{mission.op3}}</label><br>
+    <input type="radio" id="op4" name="reponse" value="{{mission.op4}}">
+    <label for="op4">{{mission.op4}}</label><br>
+  
+    <br>  
+    <button type="submit">valider</button>
+</form>
+
+
+{% endblock %}

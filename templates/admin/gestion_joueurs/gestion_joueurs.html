@@ -1,0 +1,26 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<h3>gestion des joueurs</h3>
+
+<h3>liste des joueurs</h3>
+<a href="{% url 'creer-joueur' %}">créer joueur</a>
+<table>
+    <tr>
+        <th>joueurs</th>
+        <th>modifier</th>
+        <th>supprimer</th>
+    </tr>
+    
+    {% for user in form %}
+        {% if not user.is_superuser %}
+        <tr>
+            <td>{{user}}</td>
+            <td><a href="{% url 'modifier-joueur' user %}">modifier</a></td>
+            <td><a href="{% url 'supprimer-joueur' user %}">supprimer</a></td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+<a href="/">retour</a>
+{% endblock content %}

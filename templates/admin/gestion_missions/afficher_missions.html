@@ -1,0 +1,29 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<h3>Liste des missions</h3>
+<ul>
+    <li><a href="{% url 'afficher-missions'%}">tous</a></li>
+    {% for type in types %}
+        <li><a href="{% url 'afficher-missions'%}?q={{type}}">{{type}}</a></li>
+    {% endfor %}
+    
+</ul>
+<table>
+    <tr>
+        <th>missions</th>
+        <th>modifier</th>
+        <th>supprimer</th>
+    </tr>
+    
+    {% for mission in missions %}
+        <tr>
+            <td>{{mission}}</td>
+            <td><a href="{% url 'modifier-mission' mission %}">modifier</a></td>
+            <td><a href="{% url 'supprimer-mission' mission %}">supprimer</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'gestion-missions' %}">revenir</a>
+
+{% endblock content %}

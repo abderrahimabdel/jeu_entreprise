@@ -1,0 +1,13 @@
+{% extends "home.html" %}
+
+
+
+{% block content %}
+
+{% if points > 0 %}
+    <p>félicitations vous avez gagné</p>
+{% else %}
+    <p>malheuresement vous avez perdu</p>
+    <a href="{% url 'jouer' %}">rejouer</a>
+{% endif %}
+{% endblock %}

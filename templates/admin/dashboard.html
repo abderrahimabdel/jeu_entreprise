@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Jeu entreprise</h1>
+    <div class="container" >
+        <div>
+            <a href="{% url 'joueurs' %}">gestion des joueurs</a> <br>
+            <a href="{% url 'gestion-missions' %}">gestion des missions</a>
+        </div>
+        <div>
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</body>
+
+<style>
+    .container{
+        display: grid;
+        grid-template-columns: 1fr 3fr; 
+    }
+</style>
+</html>

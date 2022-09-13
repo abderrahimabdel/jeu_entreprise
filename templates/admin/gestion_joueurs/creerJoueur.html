@@ -1,0 +1,41 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<h3>
+    {% if creer %}
+        Creer un joueur
+    {% else %}
+        Modifier le joueur
+    {% endif %}
+
+</h3>
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form__group">
+        <label for="room_name">Nom d'utilisateur</label>
+        {{form.username}}
+    </div>
+
+    <div class="form__group">
+        <label for="room_description">mot de passe</label>
+        {{form.password1}}
+    </div>
+    <div class="form__group">
+        <label for="room_name">répéter le mot de passe</label>
+        {{form.password2}}
+    </div>
+
+    <div class="form__group">
+        <label for="room_description">Points de points de départs</label>
+        {{form.points}}
+    </div>
+
+    <button class="btn btn--main" type="submit">
+        Enregistrer
+    </button>
+</form>
+<a href="{% url 'joueurs' %}">revenir</a>
+
+{% endblock content %}

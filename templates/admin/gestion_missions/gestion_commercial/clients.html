@@ -1,0 +1,30 @@
+
+{% extends "dashboard.html" %}
+
+{% block content %}
+<h3>Liste des clients</h3>
+
+<a href="{% url 'creer-client'%}">créer client</a>
+
+<table>
+    <tr>
+        {% for label in labels %}
+            <th>{{label}}</th>
+        {% endfor %}
+        <th>modifier</th>
+        <th>supprimer</th>
+    </tr>
+    
+    {% for client in clients %}
+        <tr>
+            {% for value in client.get_values %}
+                <td>{{value}}</td>
+            {% endfor %}
+            <td><a href="{% url 'modifier-client' client %}">modifier</a></td>
+            <td><a href="{% url 'supprimer-client' client %}">supprimer</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'parametrage-gc' %}">Retour aux Paramètres</a>
+
+{% endblock content %}

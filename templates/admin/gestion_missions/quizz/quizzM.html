@@ -1,0 +1,46 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<h3>Créer un Quizz</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form__group">
+        <label for="room_name">Titre de la question</label>
+        {{form.titre}}
+    </div>
+
+    <div class="form__group">
+        <label for="room_description">Question</label>
+        {{form.question}}
+    </div>
+
+    <div class="form__group">
+        <label for="room_description">Temps de secondes : </label>
+        {{form.temps_en_secondes}}
+    </div>
+
+    <div class="form__group">
+        <h3>Réponse possible</h3>
+        <label for="room_description">A</label>
+        {{form.op1}}
+        <label for="room_description">B</label>
+        {{form.op2}}
+        <label for="room_description">C</label>
+        {{form.op3}}
+        <label for="room_description">D</label>
+        {{form.op4}}
+        <h3>Réponse</h3>
+        {{form.rep}}
+    </div>
+
+    <div class="form__group">
+        <label for="room_description">Point si réponse juste</label>
+        {{form.points}}
+    </div>
+
+    <button class="btn btn--main" type="submit">Enregistrer le quizz</button>   
+</form>
+
+<a href="{% url 'afficher-missions' %}">revenir</a>
+
+{% endblock content %}

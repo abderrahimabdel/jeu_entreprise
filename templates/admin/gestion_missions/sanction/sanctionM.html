@@ -1,0 +1,34 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<h3>Créer une sanction</h3>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form__group">
+        <label for="room_name">Titre de la sanction</label>
+        {{form.titre}}
+    </div>
+    <div class="form__group">
+        <label for="room_name">Intitulé</label>
+        {{form.intitule}}
+    </div>
+    <div class="form__group">
+        <label for="room_name">Points attribués</label>
+        {{form.pointsA}}
+    </div>
+
+    <div class="form__group">
+        <label for="room_name">Points retirés</label>
+        {{form.pointsR}}
+    </div>
+    <div class="form__group">
+        <label for="room_description">Temps de secondes : </label>
+        {{form.temps_en_secondes}}
+    </div>
+    <button class="btn btn--main" type="submit">Enregistrer la mission</button>
+</form>
+<a href="{% url 'afficher-missions' %}">revenir</a>
+
+{% endblock content %}

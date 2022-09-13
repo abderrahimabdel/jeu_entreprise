@@ -1,0 +1,15 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<h3>creer  une mission de type gestion commerciale</h3>
+<form action="" method="post">
+
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn--main" type="submit">Enregistrer la mission</button>   
+</form>
+
+<a href="{% url 'gestion-missions' %}">revenir</a>
+
+{% endblock content %}

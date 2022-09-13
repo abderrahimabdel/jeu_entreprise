@@ -1,0 +1,14 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<h3>créer un {{type}}</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Enregistrer</button>
+</form>
+
+<a href="{% url type %}">revenir</a>
+
+{% endblock content %}

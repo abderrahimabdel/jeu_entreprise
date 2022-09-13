@@ -1,0 +1,26 @@
+{% extends "home.html" %}
+
+
+
+{% block content %}
+
+
+<div style="float: right;">
+    <p>temps restant:</p>
+    <div id="temps"></div>
+</div>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>{{mission.enonce|linebreaks}}</p>
+    
+    <br> 
+    <label for="reponse">reponse</label>
+    <input type="text" name="reponse">
+    <button type="submit">valider</button>
+</form>
+
+<a href="/listing/fournisseurs">voir listing fournisseurs</a>
+<a href="/listing/clients">voir listing clients</a>
+<a href="/listing/produits">voir listing produits</a>
+
+{% endblock %}
