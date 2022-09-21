@@ -2,8 +2,13 @@
 
 {% block content %}
 <h3>Créer un Quizz</h3>
+<button><a href="{% url 'creer-type-quizz' %}" >créer un type de quizz</a></button>
 <form action="" method="post">
     {% csrf_token %}
+    <div class="form__group">
+        <label for="room_name">Type du quizz</label>
+        {{form.type_de_quizz}}
+    </div>
     <div class="form__group">
         <label for="room_name">Titre de la question</label>
         {{form.titre}}

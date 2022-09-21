@@ -30,8 +30,10 @@ def generer(request):
         gagne = joueur.update_points(answer)
         mission = joueur.update_mission()
         if mission == True:
+            a_gagne = (joueur.points > 0)
+            old_joueur = joueur
             joueur.reset()
-            return render(request, "resultat_final.html", context={"joueur":joueur, "points":joueur.points})
+            return render(request, "resultat_final.html", context={"joueur":old_joueur, "gagne":a_gagne})
         request.session["gagne"] = gagne
         request.session["points"] = abs(points)
         return redirect('resultat')

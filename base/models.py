@@ -1,8 +1,15 @@
+import datetime
 import random
 from django.db import models
 from django.forms import ValidationError
-from django.contrib.auth.models import (AbstractBaseUser, UserManager,AbstractUser)
+from django.contrib.auth.models import (UserManager,AbstractUser)
 from copy import deepcopy
+
+class Choix(models.Model):
+    choix = models.CharField(max_length=150, null=True, unique=True)
+
+    def __str__(self):
+        return self.choix
 
 class Joueur(AbstractUser):
     username = models.CharField(max_length=200, unique=True, null=True)
@@ -10,6 +17,9 @@ class Joueur(AbstractUser):
     password2 = models.CharField(max_length=80, null=True)
     points = models.IntegerField(null=True)
     points_depart = models.IntegerField(null=True)
+
+    type_de_missions = models.ManyToManyField(Choix, related_name="type_de_missions")
+
     mission_courante = models.ForeignKey('Mission_Joueur', on_delete=models.CASCADE, null=True, default=None)
     missions_passe = models.ManyToManyField('Mission_Joueur', related_name='missions_passe', default="")
     USERNAME_FIELD = "username"
@@ -35,14 +45,13 @@ class Joueur(AbstractUser):
 
     def save(self, *args, **kwargs):
         self.username = self.username.lower()
-        self.points_depart = deepcopy(self.points)
         return super(Joueur, self).save(*args, **kwargs)
 
     def reset(self):
         self.mission_courante = None
         self.missions_passe.clear()
-        print(self.points, self.points_depart)
-        self.points = self.points_depart
+        self.points = deepcopy(self.points_depart)
+        self.save()
 
     def update_password(self):
         self.set_password(self.password1)
@@ -50,18 +59,37 @@ class Joueur(AbstractUser):
 
     def update_points(self, reponse):
         resultat = self.mission_courante.resultat(reponse)
+        temps = round((datetime.datetime.now(datetime.timezone.utc) - self.mission_courante.debut).total_seconds())
+        temps_mission = self.mission_courante.mission.temps_en_secondes
+        if (resultat > 0) and (temps > 0):
+            if temps <= temps_mission*0.25:
+                resultat = resultat * 0.75
+            elif temps_mission*0.25 < temps <= temps_mission*0.5:
+                resultat = resultat * 0.5
+            elif temps_mission*0.5 < temps <= temps_mission*0.75:
+                resultat = resultat * 0.25
+            else:
+                resultat = 0
         self.points += resultat
         self.save()
         return resultat > 0
 
     def update_mission(self):
+        #hna khssni nfilitri les missions
+
+        
         missions_passe = self.missions_passe.all()
         missions_p = [m.mission for m in missions_passe]
-
-        if (missions_passe.count() % 5==0) and (missions_passe.count() > 0):
+        to_include = self.type_de_missions.all()
+        to_include = list(map(lambda x:x.choix,to_include))
+        include_sanction = "sanction" in to_include
+        not_quizz = ["gestion-commerciale"]
+        if (missions_passe.count() % 5==0) and (missions_passe.count() > 0) and (include_sanction):
             missions = Mission.objects.filter(type="sanction")
         else:
-            missions = Mission.objects.all().exclude(pk__in=[p.pk for p in missions_p]).exclude(type="sanction")
+            #missions = Mission.objects.filter(type="quizz").exclude(pk__in=[p.pk for p in missions_p])
+            missions = Mission.objects.filter(quizzm__type_de_quizz__in=self.type_de_missions.all()) | Mission.objects.filter(type=not_quizz)
+            missions = missions.exclude(pk__in=[p.pk for p in missions_p])
             if missions.all().count() == 0:
                 return True
         mission = Mission.get_random_mission(missions)
@@ -81,6 +109,7 @@ class Mission_Joueur(models.Model):
     temps_restant = models.IntegerField(null=True)
     enonce = models.TextField(default="",null=True)
     reponse = models.CharField(max_length=80 ,default="",null=True)
+    debut = models.DateTimeField(default=datetime.datetime.now(datetime.timezone.utc))
 
     def set_attributes(self):
         mission = self.mission.get_mission()
@@ -104,7 +133,7 @@ class Mission_Joueur(models.Model):
             return -mission.points
 
 class Mission(models.Model):
-    titre = models.CharField(max_length=200,null=True)
+    titre = models.CharField(max_length=200,null=True,unique=True)
     type = models.CharField(max_length=200,null=True)
     temps_en_secondes = models.IntegerField(null=True, default=0)
 
@@ -133,6 +162,7 @@ class QuizzM(Mission):
         ('d','D'),
     )
 
+    type_de_quizz = models.ForeignKey(Choix, on_delete=models.CASCADE)
     question =  models.CharField(max_length=200,null=True)
     op1 = models.CharField(max_length=200,null=True)
     op2 = models.CharField(max_length=200,null=True)
@@ -258,5 +288,3 @@ class GestioncM(Mission):
         
         mission_joueur.enonce = nouv_enonce
         mission_joueur.reponse = reponse
-        print(reponse)
-    

@@ -1,12 +1,13 @@
 
 
+from copy import deepcopy
 from django.contrib.auth.decorators import permission_required, login_required
 
 from django.contrib.auth import authenticate, login, logout
 
 from django.shortcuts import render, redirect
 
-from base.models import Joueur
+from base.models import Joueur, Choix
 
 from base.forms import  createPlayerForm
 
@@ -23,6 +24,7 @@ def creerJoueur(request):
     if request.method == 'POST':
         form = createPlayerForm(request.POST)
         if form.is_valid():
+            form.instance.points_depart = deepcopy(form.instance.points)
             form.save()
             form.instance.update_password()
             return redirect("joueurs")

@@ -22,6 +22,7 @@ urlpatterns = [
     
     #creer des missions
     path('creer-quizz', views.quizzM, name="creer-quizz"),
+    path('creer-type-quizz', views.creerTypeQuizz, name="creer-type-quizz"),
     path('creer-sanction', views.sanctionM, name="creer-sanction"),
 
     

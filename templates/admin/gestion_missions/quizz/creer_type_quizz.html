@@ -1,0 +1,16 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<h3>Créer un type de Quizz</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button class="btn btn--main" type="submit">Enregistrer le type du quizz</button>   
+</form>
+
+<a href="{% url 'creer-quizz' %}">revenir</a>
+
+
+{% endblock content %}

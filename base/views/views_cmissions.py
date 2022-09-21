@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from base.models import Client, Fournisseur, GestioncM, Joueur, Produit, QuizzM, sanctionsM, Mission
 
-from base.forms import createClientForm, createFournisseurForm, createGestionComForm, createProduitForm, createQuizzForm, createPlayerForm, createSanctionForm
+from base.forms import createChoixForm, createClientForm, createFournisseurForm, createGestionComForm, createProduitForm, createQuizzForm, createPlayerForm, createSanctionForm
 
 # Create your views here.
 
@@ -18,9 +18,10 @@ def gestionM(request):
 def afficherM(request):
     q = request.GET.get("q")
     missions = Mission.objects.all()
+    types = ["quizz", "sanction", "gestion-commerciale"]
     if q:
         missions = Mission.objects.filter(type=q)
-    types = ["quizz", "sanction", "gestion-commerciale"]
+    
     return render(request, "afficher_missions.html", {"missions":missions, "types" : types})
 
 def modifierM(request, pk):
@@ -58,11 +59,22 @@ def quizzM(request):
     if request.method == "POST":
         form = createQuizzForm(request.POST)
         form.instance.type = "quizz"
+        print(form.errors)
         if form.is_valid():
             form.save()
             return redirect("afficher-missions")
     context = {'form': form}
     return render(request, "quizzM.html", context)
+
+def creerTypeQuizz(request):
+    form = createChoixForm()
+    if request.method == "POST":
+        form = createChoixForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("creer-quizz")
+    context = {'form': form}
+    return render(request, "creer_type_quizz.html", context)
 
 def sanctionM(request):
     form = createSanctionForm()

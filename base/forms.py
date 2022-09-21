@@ -1,19 +1,34 @@
 from dataclasses import fields
 from django.forms import ModelForm
+from django import forms
 
-from .models import Client, Fournisseur, Produit, QuizzM, Joueur, GestioncM, sanctionsM
+from .models import Choix, Client, Fournisseur, Produit, QuizzM, Joueur, GestioncM, sanctionsM
 #from django.contrib.auth.forms import UserCreationForm
 
 class createPlayerForm(ModelForm):
     class Meta:
         model = Joueur
-        fields = ["username", "password1", "password2", "points"]
+        fields = ["username", "password1", "password2", "points", "type_de_missions"]
+        widgets = {
+            'type_de_missions': forms.CheckboxSelectMultiple(),
+        }
 
 class createQuizzForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+            super(createQuizzForm, self).__init__(*args, **kwargs)
+            self.fields['type_de_quizz'].queryset = self.fields['type_de_quizz'].queryset.exclude(choix__in=[p for p in Choix.objects.all() if p.choix in ["sanction", "gestion-commerciale"]])
+
+
     class Meta:
         model = QuizzM
         fields = '__all__'
         exclude = ['type']
+
+class createChoixForm(ModelForm):
+    class Meta:
+        model = Choix
+        fields = '__all__'
+        labels = {"choix":"type du quizz"}
 
 class createSanctionForm(ModelForm):
     class Meta:

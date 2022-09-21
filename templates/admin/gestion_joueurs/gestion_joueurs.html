@@ -1,26 +1,76 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
-<h3>gestion des joueurs</h3>
+<div class="home-section-title">
+    <h3>Gestion des joueurs</h3>
+    <button type="button" class="btn btn-secondary"><a href="{% url 'creer-joueur' %}">créer un joueur</a></button>
+</div>
 
-<h3>liste des joueurs</h3>
-<a href="{% url 'creer-joueur' %}">créer joueur</a>
-<table>
-    <tr>
-        <th>joueurs</th>
-        <th>modifier</th>
-        <th>supprimer</th>
-    </tr>
-    
-    {% for user in form %}
-        {% if not user.is_superuser %}
+<div class="table-div">
+    <h3>liste des joueurs</h3>
+    <table>
         <tr>
-            <td>{{user}}</td>
-            <td><a href="{% url 'modifier-joueur' user %}">modifier</a></td>
-            <td><a href="{% url 'supprimer-joueur' user %}">supprimer</a></td>
+            <th>Joueurs</th>
+            <th>modifier</th>
+            <th>supprimer</th>
         </tr>
-        {% endif %}
-    {% endfor %}
-</table>
-<a href="/">retour</a>
+        
+        {% for user in form %}
+            {% if not user.is_superuser %}
+            <tr>
+                <td>{{user}}</td>
+                <td><a href="{% url 'modifier-joueur' user %}"><i class="bi bi-pencil-square"></i></a></td>
+                <td><a href="{% url 'supprimer-joueur' user %}"><i class="bi bi-trash"></i></a></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>
+<div class="retour">
+    <button type="button" class="btn btn-dark">
+        <a href="/">
+            <i class="bi bi-arrow-left"></i>
+            <span>Retour</span> 
+        </a>
+    </button>
+</div>
+
+<style>
+    .home-section-title{
+        background-color: #fff;
+        display: flex;
+        padding: 10px;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+        justify-content: space-between;
+    }
+    .home-section table{
+        background-color: #fff;
+        border-collapse: collapse;
+        margin:25px 0;
+        min-width: 400px;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+    }
+    .home-section table th{
+        background-color: #009879;
+        color: #fff;
+        font-weight: bold;
+        padding: 10px 10px;
+    }
+    .home-section table td{
+        padding: 12px 15px;
+    }
+    .home-section table tr{
+        border-bottom: 1px solid #dddddd;
+    }
+    .home-section .table-div{
+        padding: 30px 100px;
+    }
+    .home-section button a{
+        color: #fff;
+    }
+</style>
 {% endblock content %}
