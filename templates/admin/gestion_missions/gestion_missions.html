@@ -2,13 +2,18 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
-<a href="{% url 'afficher-missions' %}"><button type="button" class="btn btn-primary">afficher les missions</button></a> <br>
-{% for type in types %}
-    <a href="missions/creer-{{type}}"><button type="button" class="btn btn-primary">créer une mission de type {{type}}</button></a>
+<div class="home-section-title">
+    <h3>Gestion des missions</h3>
+</div>
+<div class="buttons">
+    <a href="{% url 'afficher-missions' %}"><button type="button" class="btn btn-primary flex-button">afficher les missions</button></a> <br>
+    {% for type in types %}
+        <a href="missions/creer-{{type}}"><button type="button" class="btn btn-primary flex-button">créer une mission de type {{type}}</button></a>
+        <br>
+    {% endfor %}
+    <a href="{% url 'parametrage-gc' %}"><button type="button" class="btn btn-primary flex-button">Paramétrage Mission gestion commerciale</button></a>
     <br>
-{% endfor %}
-<a href="{% url 'parametrage-gc' %}"><button type="button" class="btn btn-primary">Paramétrage Mission gestion commerciale</button></a>
-<br>
+</div>
 <a href="/"><button type="button" class="btn btn-secondary">revenir</button></a>
 
 {% endblock content %}

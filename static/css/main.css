@@ -112,3 +112,17 @@ a{
     display: flex;
     justify-content: space-between;
 }
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #fff;
+    margin: 20px;
+}
+
+.flex-button {
+    width: 200px;
+    height: 100px;
+    margin: 20px;
+}
