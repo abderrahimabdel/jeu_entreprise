@@ -63,9 +63,11 @@ def Login(request):
         password = request.POST.get("password")
         try:
             joueur = Joueur.objects.get(username=username)
-            if joueur.password1==password:
-                user = authenticate(request, username=username, password=password)
+            user = authenticate(request, username=username, password=password)
+            if user:
                 login(request, user)
+                if user.is_superuser:
+                    return redirect("dashboard")
                 return redirect("jouer")
         except:
             pass

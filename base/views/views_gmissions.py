@@ -1,4 +1,5 @@
 
+from copy import deepcopy
 from urllib import response
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -17,34 +18,33 @@ from django.views.decorators.cache import cache_control
 @login_required(login_url='/login/')
 def generer(request):
     joueur = request.user
+    
     mission_c = joueur.mission_courante
-    if mission_c:
-        temps_restant = mission_c.temps_restant
-        n_mission = mission_c.mission
-    else:
-        temps_restant = 0
+
     if request.method == "POST":
+        n_mission = mission_c.mission
         mission = n_mission.get_mission()
         answer = request.POST.get("reponse")
         points = mission_c.resultat(answer)
         gagne = joueur.update_points(answer)
         mission = joueur.update_mission()
-        if mission == True:
-            a_gagne = (joueur.points > 0)
-            old_joueur = joueur
-            joueur.reset()
-            return render(request, "resultat_final.html", context={"joueur":old_joueur, "gagne":a_gagne})
         request.session["gagne"] = gagne
         request.session["points"] = abs(points)
         return redirect('resultat')
 
-    if temps_restant > 0:
+    if not joueur.possible_play():
+        old_joueur = deepcopy(joueur)
+        joueur.reset()
+        return render(request, "resultat_final.html", context={"joueur":old_joueur, "gagne":(old_joueur.points>0)})
+
+    if mission_c:
         mission = mission_c.mission.get_mission()
     else:
         mission = joueur.update_mission()
-        if mission == True:
-            return render(request, "resultat_final.html", context={"joueur":joueur, "points":joueur.points})
         mission_c = joueur.mission_courante
+    
+    temps_restant = mission_c.temps_restant
+
     if mission.type == "quizz":
         return render(request, "quizzj.html", context={'mission':mission, "joueur":joueur, "temps" : temps_restant})
     elif mission.type == "sanction":

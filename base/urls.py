@@ -7,44 +7,44 @@ urlpatterns = [
     path('', views.dashboard, name="dashboard"),
     
     # gestion des joueurs
-    path('creer-joueur', views.creerJoueur, name="creer-joueur"),
+    path('joueurs/creer-joueur', views.creerJoueur, name="creer-joueur"),
     path('joueurs', views.joueurs, name="joueurs"),
-    path('modifier-joueur/<str:pk>/', views.modifierJoueur, name="modifier-joueur"),
-    path('supprimer-joueur/<str:pk>/', views.supprimerJoueur, name="supprimer-joueur"),
+    path('joueurs/modifier-joueur/<str:pk>/', views.modifierJoueur, name="modifier-joueur"),
+    path('joueurs/supprimer-joueur/<str:pk>/', views.supprimerJoueur, name="supprimer-joueur"),
 
     # gestion des missions
-    path('gestion-missions', views.gestionM, name="gestion-missions"),
+    path('missions', views.gestionM, name="gestion-missions"),
     
     
-    path('afficher-missions', views.afficherM, name="afficher-missions"),
-    path('modifier-mission/<str:pk>/', views.modifierM, name="modifier-mission"),
-    path('supprimer-mission/<str:pk>/', views.supprimerM, name="supprimer-mission"),
+    path('missions/afficher-missions', views.afficherM, name="afficher-missions"),
+    path('missions/modifier-mission/<str:pk>/', views.modifierM, name="modifier-mission"),
+    path('missions/supprimer-mission/<str:pk>/', views.supprimerM, name="supprimer-mission"),
     
     #creer des missions
-    path('creer-quizz', views.quizzM, name="creer-quizz"),
-    path('creer-type-quizz', views.creerTypeQuizz, name="creer-type-quizz"),
-    path('creer-sanction', views.sanctionM, name="creer-sanction"),
+    path('missions/creer-quizz', views.quizzM, name="creer-quizz"),
+    path('missions/creer-type-quizz', views.creerTypeQuizz, name="creer-type-quizz"),
+    path('missions/creer-sanction', views.sanctionM, name="creer-sanction"),
 
     
     #path('creer-gestion-commerciale', views.gectioncM, name="creer-gestion-commerciale"),
 
-    path('parametrage-gc', views.parametrageGC, name="parametrage-gc"),
-    path('fournisseurs', views.fournisseurs, name="fournisseurs"),
-    path('creer-fournisseur', views.CreerFournisseur, name="creer-fournisseur"),
-    path('modifier-fournisseur/<str:pk>/', views.ModifierFournisseur, name="modifier-fournisseur"),
-    path('supprimer-fournisseur/<str:pk>/', views.SupprimerFournisseur, name="supprimer-fournisseur"),
+    path('missions/parametrage-gc', views.parametrageGC, name="parametrage-gc"),
+    path('missions/fournisseurs', views.fournisseurs, name="fournisseurs"),
+    path('missions/fournisseurs/creer-fournisseur', views.CreerFournisseur, name="creer-fournisseur"),
+    path('missions/fournisseurs/modifier-fournisseur/<str:pk>/', views.ModifierFournisseur, name="modifier-fournisseur"),
+    path('missions/fournisseurs/supprimer-fournisseur/<str:pk>/', views.SupprimerFournisseur, name="supprimer-fournisseur"),
 
-    path('clients', views.clients, name="clients"),
-    path('creer-client', views.CreerClient, name="creer-client"),
-    path('modifier-client/<str:pk>/', views.ModifierClient, name="modifier-client"),
-    path('supprimer-client/<str:pk>/', views.SupprimerClient, name="supprimer-client"),
+    path('missions/clients', views.clients, name="clients"),
+    path('missions/clients/creer-client', views.CreerClient, name="creer-client"),
+    path('missions/clients/modifier-client/<str:pk>/', views.ModifierClient, name="modifier-client"),
+    path('missions/clients/supprimer-client/<str:pk>/', views.SupprimerClient, name="supprimer-client"),
 
-    path('produits', views.produits, name="produits"),
-    path('creer-produit', views.CreerProduit, name="creer-produit"),
-    path('modifier-produit/<str:pk>/', views.ModifierProduit, name="modifier-produit"),
-    path('supprimer-produit/<str:pk>/', views.SupprimerProduit, name="supprimer-produit"),
+    path('missions/produits', views.produits, name="produits"),
+    path('missions/produits/creer-produit', views.CreerProduit, name="creer-produit"),
+    path('missions/produits/modifier-produit/<str:pk>/', views.ModifierProduit, name="modifier-produit"),
+    path('missions/produits/supprimer-produit/<str:pk>/', views.SupprimerProduit, name="supprimer-produit"),
 
-    path('creer-gestion-commerciale', views.gestioncM, name="creer-gestion-commerciale"),
+    path('missions/creer-gestion-commerciale', views.gestioncM, name="creer-gestion-commerciale"),
 
     #jouer
     path("jouer", views.jouer, name="jouer"),

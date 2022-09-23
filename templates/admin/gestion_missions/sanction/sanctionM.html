@@ -1,34 +1,39 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+<div class="home-section-title">
+    <h3>Créer une sanction</h3>
+</div>
 
-<h3>Créer une sanction</h3>
+<div class="create-object">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="object-info">
+            <label class="label-info" for="titre">Titre : </label>
+            {{form.titre}}
+        </div>
+        <div class="object-info">
+            <label class="label-info" for="intitule">Intitulé : </label>
+            {{form.intitule}}
+        </div>
+        <div class="object-info">
+            <label class="label-info" for="points_a">Points attribués : </label>
+            {{form.pointsA}}
+        </div>
 
-<form action="" method="post">
-    {% csrf_token %}
-    <div class="form__group">
-        <label for="room_name">Titre de la sanction</label>
-        {{form.titre}}
-    </div>
-    <div class="form__group">
-        <label for="room_name">Intitulé</label>
-        {{form.intitule}}
-    </div>
-    <div class="form__group">
-        <label for="room_name">Points attribués</label>
-        {{form.pointsA}}
-    </div>
-
-    <div class="form__group">
-        <label for="room_name">Points retirés</label>
-        {{form.pointsR}}
-    </div>
-    <div class="form__group">
-        <label for="room_description">Temps de secondes : </label>
-        {{form.temps_en_secondes}}
-    </div>
-    <button class="btn btn--main" type="submit">Enregistrer la mission</button>
-</form>
-<a href="{% url 'afficher-missions' %}">revenir</a>
+        <div class="object-info">
+            <label class="label-info" for="points_r">Points retirés : </label>
+            {{form.pointsR}}
+        </div>
+        <div class="object-info">
+            <label class="label-info" for="temps">Temps de secondes : </label>
+            {{form.temps_en_secondes}}
+        </div>
+        <button class="btn btn-success" type="submit">Enregistrer la mission</button>
+    </form>
+</div>
+<a href="{% url 'afficher-missions' %}">
+    <button type="button" class="btn btn-dark">revenir</button>
+</a>
 
 {% endblock content %}

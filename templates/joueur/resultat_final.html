@@ -4,8 +4,9 @@
 
 {% block content %}
 
-{% if a_gagne%}
+{% if gagne%}
     <p>félicitations vous avez gagné</p>
+    <a href="{% url 'jouer' %}">rejouer</a>
 {% else %}
     <p>malheuresement vous avez perdu</p>
     <a href="{% url 'jouer' %}">rejouer</a>

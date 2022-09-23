@@ -1,0 +1,114 @@
+*{
+    font-family: sans-serif;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.side-bar{
+    height: 100%;
+    width: 240px;
+    background-color: blue;
+    position: fixed;
+}
+.side-bar .title h1{
+    font-size: 28px;
+    color: white;
+    text-align: center;
+    margin: 30px 20px;
+}
+.side-bar ul{
+    margin-top: 60px;
+    list-style: none;
+    padding-left: 0;
+}
+.side-bar li{
+    font-size: 18px;
+}
+.side-bar i{
+    margin: 10px;
+    text-align: center;
+}
+.side-bar a{
+    text-decoration: none;
+    color: white;
+    padding: 20px;
+}
+.side-bar li a:hover{
+    background-color: aqua;
+}
+.active{
+    background-color: aqua;
+    color: black !important;
+}
+.home-section{
+    position: relative;
+    left: 240px;
+    width: calc(100% - 240px);
+    background-color: #f5f5f5;
+    height: 100vh;
+    padding: 30px;
+}
+
+.label-info{
+    font-weight: bold;
+    font-size: 20;
+
+}
+
+.home-section-title{
+    background-color: #fff;
+    display: flex;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    justify-content: space-between;
+}
+.home-section table{
+    background-color: #fff;
+    border-collapse: collapse;
+    margin:25px 0;
+    min-width: 400px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+.home-section table th{
+    background-color: #009879;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 10px;
+}
+.home-section table td{
+    padding: 12px 15px;
+}
+.home-section table tr{
+    border-bottom: 1px solid #dddddd;
+}
+.home-section .table-div{
+    padding: 30px 100px;
+}
+.home-section button a{
+    color: #fff;
+}
+
+.create-object {
+    background-color: #fff;
+    margin: 30px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    padding: 20px;
+}
+.object-info {
+    margin: 10px;
+}
+
+.label-info {
+    width: 250px;
+}
+#id_type_de_missions {
+    margin: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+}

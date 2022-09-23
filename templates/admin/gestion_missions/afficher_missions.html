@@ -1,29 +1,55 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
-<h3>Liste des missions</h3>
-<ul>
-    <li><a href="{% url 'afficher-missions'%}">tous</a></li>
-    {% for type in types %}
-        <li><a href="{% url 'afficher-missions'%}?q={{type}}">{{type}}</a></li>
-    {% endfor %}
-    
-</ul>
-<table>
-    <tr>
-        <th>missions</th>
-        <th>modifier</th>
-        <th>supprimer</th>
-    </tr>
-    
-    {% for mission in missions %}
-        <tr>
-            <td>{{mission}}</td>
-            <td><a href="{% url 'modifier-mission' mission %}">modifier</a></td>
-            <td><a href="{% url 'supprimer-mission' mission %}">supprimer</a></td>
-        </tr>
-    {% endfor %}
-</table>
-<a href="{% url 'gestion-missions' %}">revenir</a>
 
+<div class="home-section-title">
+    <h3>Afficher les missions</h3>
+    <select onChange="window.location.href=this.value" id="select-mission">
+        <option value="{% url 'afficher-missions'%}"><a href="{% url 'afficher-missions'%}">tous</a></option>
+        {% for type in types %}
+            <option value="{% url 'afficher-missions'%}?q={{type}}"><a href="{% url 'afficher-missions'%}?q={{type}}">{{type}}</a></option>
+        {% endfor %}
+        
+    </select>
+</div>
+
+<div class="table-div">
+    <h3>Liste des missions</h3>
+    <table>
+        <tr>
+            <th>Missions</th>
+            <th>modifier</th>
+            <th>supprimer</th>
+        </tr>
+        
+        {% for mission in missions %}
+            <tr>
+                <td>{{mission}}</td>
+                <td><a href="{% url 'modifier-mission' mission %}"><i class="bi bi-pencil-square"></i></a></td>
+                <td><a href="{% url 'supprimer-mission' mission %}"><i class="bi bi-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="retour">
+    
+    <a href="{% url 'gestion-missions' %}">
+        <button type="button" class="btn btn-dark">
+            <i class="bi bi-arrow-left"></i>
+            <span>Retour</span>
+        </button>
+    </a>
+    
+</div>
+<script>
+    var select = document.getElementById("select-mission")
+    var option
+    for(var i = 0; i < select.length; i++) {
+       option = select[i];
+       if ((option.value).includes("?q") && (window.location.href).includes(option.value)) {
+           console.log(option.value);
+           select.value = option.value
+       }
+     }
+</script>
 {% endblock content %}

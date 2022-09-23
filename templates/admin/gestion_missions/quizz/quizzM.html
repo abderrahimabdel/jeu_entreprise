@@ -1,51 +1,61 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
-<h3>Créer un Quizz</h3>
-<button><a href="{% url 'creer-type-quizz' %}" >créer un type de quizz</a></button>
-<form action="" method="post">
-    {% csrf_token %}
-    <div class="form__group">
-        <label for="room_name">Type du quizz</label>
-        {{form.type_de_quizz}}
-    </div>
-    <div class="form__group">
-        <label for="room_name">Titre de la question</label>
-        {{form.titre}}
-    </div>
+<div class="home-section-title">
+    <h3>Créer un Quizz</h3>
+    <button class="btn btn-secondary"><a href="{% url 'creer-type-quizz' %}" >créer un type de quizz</a></button>
+</div>
 
-    <div class="form__group">
-        <label for="room_description">Question</label>
-        {{form.question}}
-    </div>
+<div class="create-object">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="object-info">
+            <label class="label-info" for="type_quizz">Type du quizz : </label>
+            {{form.type_de_quizz}}
+        </div>
+        <div class="object-info">
+            <label class="label-info" for="titre">Titre de la question : </label>
+            {{form.titre}}
+        </div>
 
-    <div class="form__group">
-        <label for="room_description">Temps de secondes : </label>
-        {{form.temps_en_secondes}}
-    </div>
+        <div class="object-info">
+            <label class="label-info" for="question">Question : </label>
+            {{form.question}}
+        </div>
 
-    <div class="form__group">
-        <h3>Réponse possible</h3>
-        <label for="room_description">A</label>
-        {{form.op1}}
-        <label for="room_description">B</label>
-        {{form.op2}}
-        <label for="room_description">C</label>
-        {{form.op3}}
-        <label for="room_description">D</label>
-        {{form.op4}}
-        <h3>Réponse</h3>
-        {{form.rep}}
-    </div>
+        <div class="object-info">
+            <label class="label-info" for="temps">Temps de secondes : </label>
+            {{form.temps_en_secondes}}
+        </div>
 
-    <div class="form__group">
-        <label for="room_description">Point si réponse juste</label>
-        {{form.points}}
-    </div>
+        <div class="object-info">
+            <label class="label-info" for="reponses_possibles">Réponses possibles : </label>
+            <div>
+                <label for="a">A</label>
+                {{form.op1}}
+                <label  for="b">B</label>
+                {{form.op2}}
+                <label  for="c">C</label>
+                {{form.op3}}
+                <label  for="d">D</label>
+                {{form.op4}}
+            </div>
+        </div>
+        <div class="object-info">
+            <label class="label-info" for="reponse">Réponse : </label>
+            {{form.rep}}
+        </div>
 
-    <button class="btn btn--main" type="submit">Enregistrer le quizz</button>   
-</form>
+        <div class="object-info">
+            <label class="label-info" for="points">Points si réponse juste : </label>
+            {{form.points}}
+        </div>
 
-<a href="{% url 'afficher-missions' %}">revenir</a>
+        <button class="btn btn-success" type="submit">Enregistrer le quizz</button>   
+    </form>
+</div>
+<a href="{% url 'afficher-missions' %}">
+    <button type="button" class="btn btn-dark">revenir</button>
+</a>
 
 {% endblock content %}

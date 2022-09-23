@@ -59,25 +59,20 @@ class Joueur(AbstractUser):
 
     def update_points(self, reponse):
         resultat = self.mission_courante.resultat(reponse)
-        temps = round((datetime.datetime.now(datetime.timezone.utc) - self.mission_courante.debut).total_seconds())
-        temps_mission = self.mission_courante.mission.temps_en_secondes
-        if (resultat > 0) and (temps > 0):
-            if temps <= temps_mission*0.25:
-                resultat = resultat * 0.75
-            elif temps_mission*0.25 < temps <= temps_mission*0.5:
-                resultat = resultat * 0.5
-            elif temps_mission*0.5 < temps <= temps_mission*0.75:
-                resultat = resultat * 0.25
-            else:
-                resultat = 0
         self.points += resultat
+        self.missions_passe.add(self.mission_courante)
         self.save()
         return resultat > 0
 
-    def update_mission(self):
-        #hna khssni nfilitri les missions
+    def possible_play(self):
+        missions_passe = self.missions_passe.all()
+        not_quizz = ["gestion-commerciale"]
+        missions_p = [m.mission for m in missions_passe]
+        missions = Mission.objects.filter(quizzm__type_de_quizz__in=self.type_de_missions.all()) | Mission.objects.filter(type=not_quizz)
+        missions = missions.exclude(pk__in=[p.pk for p in missions_p])
+        return missions.all().count() != 0
 
-        
+    def update_mission(self):
         missions_passe = self.missions_passe.all()
         missions_p = [m.mission for m in missions_passe]
         to_include = self.type_de_missions.all()
@@ -87,7 +82,6 @@ class Joueur(AbstractUser):
         if (missions_passe.count() % 5==0) and (missions_passe.count() > 0) and (include_sanction):
             missions = Mission.objects.filter(type="sanction")
         else:
-            #missions = Mission.objects.filter(type="quizz").exclude(pk__in=[p.pk for p in missions_p])
             missions = Mission.objects.filter(quizzm__type_de_quizz__in=self.type_de_missions.all()) | Mission.objects.filter(type=not_quizz)
             missions = missions.exclude(pk__in=[p.pk for p in missions_p])
             if missions.all().count() == 0:
@@ -97,7 +91,6 @@ class Joueur(AbstractUser):
         mission_joueur.set_attributes()
         mission_joueur.save()
         self.mission_courante = mission_joueur
-        self.missions_passe.add(mission_joueur)
         self.save()
         return mission
 
@@ -126,11 +119,26 @@ class Mission_Joueur(models.Model):
         mission = self.mission.get_mission()
         if reponse == self.reponse:
             if mission.type == "sanction":
-                return mission.resultat()
+                resultat =  mission.resultat()
+                return resultat
             else:
-                return mission.points
+                resultat =  mission.points
         else:
-            return -mission.points
+            resultat = -mission.points
+        temps = round((datetime.datetime.now(datetime.timezone.utc) - self.debut).total_seconds())
+        temps_mission = self.mission.temps_en_secondes
+        if (resultat > 0):
+            if temps <= temps_mission:
+                pass
+            elif temps_mission < temps <= temps_mission*0.25:
+                resultat = resultat * 0.75
+            elif temps_mission*0.25 < temps <= temps_mission*0.5:
+                resultat = resultat * 0.5
+            elif temps_mission*0.5 < temps <= temps_mission*0.75:
+                resultat = resultat * 0.25
+            else:
+                resultat = 0
+        return resultat
 
 class Mission(models.Model):
     titre = models.CharField(max_length=200,null=True,unique=True)
@@ -288,3 +296,4 @@ class GestioncM(Mission):
         
         mission_joueur.enonce = nouv_enonce
         mission_joueur.reponse = reponse
+
