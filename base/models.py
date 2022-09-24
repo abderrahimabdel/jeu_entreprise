@@ -105,6 +105,7 @@ class Mission_Joueur(models.Model):
     debut = models.DateTimeField(default=datetime.datetime.now(datetime.timezone.utc))
 
     def set_attributes(self):
+        self.debut = datetime.datetime.now(datetime.timezone.utc)
         mission = self.mission.get_mission()
         if mission.type == "quizz":
             self.enonce =  mission.question
@@ -137,7 +138,7 @@ class Mission_Joueur(models.Model):
             elif temps_mission*0.5 < temps <= temps_mission*0.75:
                 resultat = resultat * 0.25
             else:
-                resultat = 0
+                resultat = - resultat
         return resultat
 
 class Mission(models.Model):
