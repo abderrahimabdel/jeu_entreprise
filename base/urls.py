@@ -23,7 +23,7 @@ urlpatterns = [
     #creer des missions
     path('missions/creer-quizz', views.quizzM, name="creer-quizz"),
     path('missions/creer-type-quizz', views.creerTypeQuizz, name="creer-type-quizz"),
-    path('missions/creer-sanction', views.sanctionM, name="creer-sanction"),
+    path("missions/creer-vie d'entreprise", views.vieEntrepriseM, name="creer-vie d'entreprise"),
 
     
     #path('creer-gestion-commerciale', views.gectioncM, name="creer-gestion-commerciale"),

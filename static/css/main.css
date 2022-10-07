@@ -126,3 +126,14 @@ a{
     height: 100px;
     margin: 20px;
 }
+
+#supprimer {
+    background-color: #fff;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+}
+#supprimer span{
+    font-size: 20px;
+}

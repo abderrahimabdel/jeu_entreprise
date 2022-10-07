@@ -1,15 +1,25 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+<div class="home-section-title">
+    <h3>Créer une mission de type gestion commerciale</h3>
+</div>
 
-<h3>creer  une mission de type gestion commerciale</h3>
-<form action="" method="post">
+<div class="create-object">
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="object-info">
+                <label class="label-info" for="points">{{field.label_tag}}</label>
+                {{field}}
+            </div>
+        {% endfor %}
+        <button class="btn btn-success" type="submit">Enregistrer la mission</button>   
+    </form>
+</div>
 
-    {% csrf_token %}
-    {{form.as_p}}
-    <button class="btn btn--main" type="submit">Enregistrer la mission</button>   
-</form>
-
-<a href="{% url 'gestion-missions' %}">revenir</a>
+<a href="{% url 'gestion-missions' %}">
+    <button type="button" class="btn btn-dark">revenir</button>
+</a>
 
 {% endblock content %}

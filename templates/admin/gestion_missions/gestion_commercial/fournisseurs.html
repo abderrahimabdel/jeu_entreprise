@@ -2,29 +2,42 @@
 
 {% block content %}
 
-<h3>Liste des fournisseurs</h3>
+<div class="home-section-title">
+    <h3>Fournisseurs</h3>
+    <a href="{% url 'creer-fournisseur'%}"><button class="btn btn-secondary">créer fournisseur</button></a>
+</div>
 
-<a href="{% url 'creer-fournisseur'%}">créer fournisseur</a>
 
-<table>
-    <tr>
-        {% for label in labels %}
-            <th>{{label}}</th>
-        {% endfor %}
-        <th>modifier</th>
-        <th>supprimer</th>
-    </tr>
-    
-    {% for fournisseur in fournisseurs %}
+
+<div class="table-div">
+    <h3>Liste des fournisseurs</h3>
+    <table>
         <tr>
-            {% for value in fournisseur.get_values %}
-                <td>{{value}}</td>
+            {% for label in labels %}
+                <th>{{label}}</th>
             {% endfor %}
-            <td><a href="{% url 'modifier-fournisseur' fournisseur %}">modifier</a></td>
-            <td><a href="{% url 'supprimer-fournisseur' fournisseur %}">supprimer</a></td>
+            <th>modifier</th>
+            <th>supprimer</th>
         </tr>
-    {% endfor %}
-</table>
-<a href="{% url 'parametrage-gc' %}">Retour aux Paramètres</a>
+        
+        {% for fournisseur in fournisseurs %}
+            <tr>
+                {% for value in fournisseur.get_values %}
+                    <td>{{value}}</td>
+                {% endfor %}
+                <td><a href="{% url 'modifier-fournisseur' fournisseur %}"><i class="bi bi-pencil-square"></i></a></td>
+                <td><a href="{% url 'supprimer-fournisseur' fournisseur %}"><i class="bi bi-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 
+<div class="retour">
+    <a href="{% url 'parametrage-gc' %}">
+        <button type="button" class="btn btn-dark">
+            <i class="bi bi-arrow-left"></i>
+            <span>Retour aux Paramètres</span>
+        </button>
+    </a>
+</div>
 {% endblock content %}

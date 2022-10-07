@@ -4,9 +4,9 @@ from urllib import response
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from base.models import Client, Fournisseur, GestioncM, Joueur, Produit, QuizzM, sanctionsM, Mission
+from base.models import Client, Fournisseur, GestioncM, Joueur, Produit, QuizzM, VEntrepriseM, Mission
 
-from base.forms import createClientForm, createFournisseurForm, createGestionComForm, createProduitForm, createQuizzForm, createPlayerForm, createSanctionForm
+from base.forms import createClientForm, createFournisseurForm, createGestionComForm, createProduitForm
 import random
 
 from django.http import JsonResponse, HttpResponseRedirect
@@ -31,7 +31,7 @@ def generer(request):
         request.session["gagne"] = gagne
         request.session["points"] = abs(points)
         return redirect('resultat')
-
+        
     if not joueur.possible_play():
         old_joueur = deepcopy(joueur)
         joueur.reset()
@@ -46,13 +46,13 @@ def generer(request):
     temps_restant = mission_c.temps_restant
 
     if mission.type == "quizz":
-        return render(request, "quizzj.html", context={'mission':mission, "joueur":joueur, "temps" : temps_restant})
-    elif mission.type == "sanction":
+        return render(request, "quizzj.html", context={'mission':mission, "joueur":joueur, "temps" : temps_restant, 'nbre_points':mission.points})
+    elif mission.type == "vie d'entreprise":
         gagne_points = mission.get_mission().gagne()
 
-        return render(request, "sanctionj.html", context={'enonce':mission_c.enonce, "joueur":joueur, "temps" : temps_restant, "gagne" : gagne_points})
+        return render(request, "vie_entreprisej.html", context={'enonce':mission_c.enonce, "joueur":joueur, "temps" : temps_restant, "gagne" : gagne_points})
     else :
-        return render(request, "gestioncj.html", context={'mission':mission_c, "joueur":joueur, "temps" : temps_restant})
+        return render(request, "gestioncj.html", context={'mission':mission_c, "joueur":joueur, "temps" : temps_restant, 'nbre_points':mission.points})
 
 @login_required(login_url='/login/')
 def resultat(request):

@@ -1,14 +1,25 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+<div class="home-section-title">
+    <h3>créer un {{type}}</h3>
+</div>
 
-<h3>créer un {{type}}</h3>
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Enregistrer</button>
-</form>
+<div class="create-object">
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="object-info">
+                <label class="label-info" for="points">{{field.label_tag}}</label>
+                {{field}}
+            </div>
+        {% endfor %}
+        <button class="btn btn-success" type="submit">Enregistrer</button>
+    </form>
+</div>
 
-<a href="{% url type %}">revenir</a>
+<a href="{% url page %}">
+    <button type="button" class="btn btn-dark">revenir</button>
+</a>
 
 {% endblock content %}

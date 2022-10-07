@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=ne=l0va4@a8bkiz(+6zzg0a#6vv=&5^^#79uy=l3d&d&wl+2)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://test-jeu-entreprise.herokuapp.com/", "127.0.0.1"]
 
 
 # Application definition
@@ -60,7 +60,7 @@ TEMPLATES = [
             BASE_DIR / "templates/admin/gestion_joueurs",
             BASE_DIR / "templates/admin/gestion_missions",
             BASE_DIR / "templates/admin/gestion_missions/quizz",
-            BASE_DIR / "templates/admin/gestion_missions/sanction",
+            BASE_DIR / "templates/admin/gestion_missions/vie_d'entreprise",
             BASE_DIR / "templates/admin/gestion_missions/gestion_commercial",
             BASE_DIR / "templates/joueur",
             BASE_DIR / "templates/joueur/missions",

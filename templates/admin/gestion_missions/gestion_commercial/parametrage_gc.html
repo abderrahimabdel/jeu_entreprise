@@ -1,16 +1,17 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+<div class="home-section-title">
+    <h3>Paramétrage Mission gestion commerciale</h3>
+    <button class="btn btn-secondary"><a href="creer-gestion-commerciale">créer une mission de type gestion commerciale</a></button>
+</div>
 
-<h3>Paramétrage Mission gestion commerciale</h3>
-
-<button><a href="creer-gestion-commerciale">créer une mission de type gestion commerciale</a></button>
-<br>
-{% for type in types %}
-    <button><a href="{{type.lower}}">{{type}}</a></button>
-    <br>
-{% endfor %}
-
-<a href="{% url 'gestion-missions' %}">revenir</a>
+<div class="buttons">
+    {% for type in types %}
+        <a href="{{type.lower}}"><button type="button" class="btn btn-primary flex-button">{{type}}</button></a>
+        <br>
+    {% endfor %}
+</div>
+<a href="{% url 'gestion-missions' %}"><button type="button" class="btn btn-secondary">revenir</button></a>
 
 {% endblock content %}

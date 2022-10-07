@@ -1,29 +1,41 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
-<h3>Liste des fournisseurs</h3>
+<div class="home-section-title">
+    <h3>Produits</h3>
+    <a href="{% url 'creer-produit'%}"><button class="btn btn-secondary">créer produit</button></a>
+</div>
 
-<a href="{% url 'creer-produit'%}">créer produit</a>
-
-<table>
-    <tr>
-        {% for label in labels %}
-            <th>{{label}}</th>
-        {% endfor %}
-        <th>modifier</th>
-        <th>supprimer</th>
-    </tr>
-    
-    {% for produit in produits %}
+<div class="table-div">
+    <h3>Liste des produits</h3>
+    <table>
         <tr>
-            {% for value in produit.get_values %}
-                <td>{{value}}</td>
+            {% for label in labels %}
+                <th>{{label}}</th>
             {% endfor %}
-            <td><a href="{% url 'modifier-produit' produit %}">modifier</a></td>
-            <td><a href="{% url 'supprimer-produit' produit %}">supprimer</a></td>
+            <th>modifier</th>
+            <th>supprimer</th>
         </tr>
-    {% endfor %}
-</table>
-<a href="{% url 'parametrage-gc' %}">Retour aux Paramètres</a>
+        
+        {% for produit in produits %}
+            <tr>
+                {% for value in produit.get_values %}
+                    <td>{{value}}</td>
+                {% endfor %}
+                <td><a href="{% url 'modifier-produit' produit %}"><i class="bi bi-pencil-square"></i></a></td>
+                <td><a href="{% url 'supprimer-produit' produit %}"><i class="bi bi-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="retour">
+    <a href="{% url 'parametrage-gc' %}">
+        <button type="button" class="btn btn-dark">
+            <i class="bi bi-arrow-left"></i>
+            <span>Retour aux Paramètres</span>
+        </button>
+    </a>
+</div>
 
 {% endblock content %}

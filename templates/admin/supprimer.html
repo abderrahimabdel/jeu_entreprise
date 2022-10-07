@@ -1,11 +1,13 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
-<form action="" method="post">
-    {% csrf_token %}
-    Voulez‑vous vraiment supprimer <b>{{joueur}}</b> <br>
-    <input type="submit" value="oui">
-</form>
-<a href="{{request.META.HTTP_REFERER }}"><button>revenir</button></a>
+<div id="supprimer">
+    <form action="" method="post">
+        {% csrf_token %}
+        <span> Voulez‑vous vraiment supprimer <b>{{joueur}}</b></span> <br>
+        <button type="button" class="btn btn-danger">oui</button>
+    </form>
+</div>
+<a href="{{request.META.HTTP_REFERER }}"><button type="button" class="btn btn-dark">revenir</button></a>
 
 {% endblock content %}

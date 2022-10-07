@@ -31,23 +31,23 @@
         {% endfor %}
     </table>
 </div>
+
 <div class="retour">
-    
     <a href="{% url 'gestion-missions' %}">
         <button type="button" class="btn btn-dark">
             <i class="bi bi-arrow-left"></i>
             <span>Retour</span>
         </button>
     </a>
-    
 </div>
+
 <script>
     var select = document.getElementById("select-mission")
     var option
     for(var i = 0; i < select.length; i++) {
        option = select[i];
-       if ((option.value).includes("?q") && (window.location.href).includes(option.value)) {
-           console.log(option.value);
+       if ((option.value).includes("?q") && (decodeURI(window.location.href)).includes(option.value)) {
+           
            select.value = option.value
        }
      }

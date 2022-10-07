@@ -19,7 +19,7 @@ class Joueur(AbstractUser):
     points_depart = models.IntegerField(null=True)
 
     type_de_missions = models.ManyToManyField(Choix, related_name="type_de_missions")
-
+    nombre_de_missions = models.IntegerField(null=True,default=0)
     mission_courante = models.ForeignKey('Mission_Joueur', on_delete=models.CASCADE, null=True, default=None)
     missions_passe = models.ManyToManyField('Mission_Joueur', related_name='missions_passe', default="")
     USERNAME_FIELD = "username"
@@ -64,26 +64,28 @@ class Joueur(AbstractUser):
         self.save()
         return resultat > 0
 
-    def possible_play(self):
+    def possible_missions(self):
         missions_passe = self.missions_passe.all()
-        not_quizz = ["gestion-commerciale"]
+        not_quizz = "gestion-commerciale"
         missions_p = [m.mission for m in missions_passe]
         missions = Mission.objects.filter(quizzm__type_de_quizz__in=self.type_de_missions.all()) | Mission.objects.filter(type=not_quizz)
         missions = missions.exclude(pk__in=[p.pk for p in missions_p])
-        return missions.all().count() != 0
+        return missions
+
+    def possible_play(self):
+        n_p_missions = self.possible_missions().all().count()
+        return (n_p_missions != 0) and (self.missions_passe.all().count() < self.nombre_de_missions)
 
     def update_mission(self):
         missions_passe = self.missions_passe.all()
-        missions_p = [m.mission for m in missions_passe]
         to_include = self.type_de_missions.all()
         to_include = list(map(lambda x:x.choix,to_include))
-        include_sanction = "sanction" in to_include
-        not_quizz = ["gestion-commerciale"]
-        if (missions_passe.count() % 5==0) and (missions_passe.count() > 0) and (include_sanction):
-            missions = Mission.objects.filter(type="sanction")
+        include_ventreprise = "vie d'entreprise" in to_include
+
+        if (missions_passe.count() % 5==0) and (missions_passe.count() > 0) and (include_ventreprise):
+            missions = Mission.objects.filter(type="vie d'entreprise")
         else:
-            missions = Mission.objects.filter(quizzm__type_de_quizz__in=self.type_de_missions.all()) | Mission.objects.filter(type=not_quizz)
-            missions = missions.exclude(pk__in=[p.pk for p in missions_p])
+            missions = self.possible_missions()
             if missions.all().count() == 0:
                 return True
         mission = Mission.get_random_mission(missions)
@@ -110,7 +112,7 @@ class Mission_Joueur(models.Model):
         if mission.type == "quizz":
             self.enonce =  mission.question
             self.reponse = mission.get_reponse()
-        elif mission.type == "sanction":
+        elif mission.type == "vie d'entreprise":
             self.enonce =  mission.enonce()
             self.reponse = None
         else:
@@ -119,7 +121,7 @@ class Mission_Joueur(models.Model):
     def resultat(self, reponse):
         mission = self.mission.get_mission()
         if reponse == self.reponse:
-            if mission.type == "sanction":
+            if mission.type == "vie d'entreprise":
                 resultat =  mission.resultat()
                 return resultat
             else:
@@ -152,8 +154,8 @@ class Mission(models.Model):
     def get_mission(self):
         if self.type == "quizz":
             return QuizzM.objects.get(titre = self.titre)
-        if self.type == "sanction":
-            return sanctionsM.objects.get(titre = self.titre)
+        if self.type == "vie d'entreprise":
+            return VEntrepriseM.objects.get(titre = self.titre)
         if self.type == "gestion-commerciale":
             return GestioncM.objects.get(titre = self.titre)
     
@@ -192,7 +194,7 @@ class QuizzM(Mission):
             return self.op3
         return self.op4
 
-class sanctionsM(Mission):
+class VEntrepriseM(Mission):
     
     intitule = models.CharField(max_length=200,null=True)
     pointsA = models.IntegerField(null=True, default=0)
@@ -283,7 +285,7 @@ class GestioncM(Mission):
         if '(fournisseur)' in self.enonce:
             fournisseur = GestioncM.get_random_item(Fournisseur)
             nouv_enonce = nouv_enonce.replace("(fournisseur)", GestioncM.get_random_item(Fournisseur)[0].Nom)
-            produits_objects = Produit.objects.filter(fournisseur=fournisseur)
+            produits_objects = Produit.objects.filter(fournisseur=fournisseur[0])
             produits = list(map(lambda x:x.Nom, produits_objects))
         
         produits_text = ""

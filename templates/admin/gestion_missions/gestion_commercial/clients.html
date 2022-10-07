@@ -2,29 +2,41 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
-<h3>Liste des clients</h3>
+<div class="home-section-title">
+    <h3>Clients</h3>
+    <a href="{% url 'creer-client'%}"><button class="btn btn-secondary">créer client</button></a>
+</div>
 
-<a href="{% url 'creer-client'%}">créer client</a>
-
-<table>
-    <tr>
-        {% for label in labels %}
-            <th>{{label}}</th>
-        {% endfor %}
-        <th>modifier</th>
-        <th>supprimer</th>
-    </tr>
-    
-    {% for client in clients %}
+<div class="table-div">
+    <h3>Liste des clients</h3>
+    <table>
         <tr>
-            {% for value in client.get_values %}
-                <td>{{value}}</td>
+            {% for label in labels %}
+                <th>{{label}}</th>
             {% endfor %}
-            <td><a href="{% url 'modifier-client' client %}">modifier</a></td>
-            <td><a href="{% url 'supprimer-client' client %}">supprimer</a></td>
+            <th>modifier</th>
+            <th>supprimer</th>
         </tr>
-    {% endfor %}
-</table>
-<a href="{% url 'parametrage-gc' %}">Retour aux Paramètres</a>
+        
+        {% for client in clients %}
+            <tr>
+                {% for value in client.get_values %}
+                    <td>{{value}}</td>
+                {% endfor %}
+                <td><a href="{% url 'modifier-client' client %}"><i class="bi bi-pencil-square"></i></a></td>
+                <td><a href="{% url 'supprimer-client' client %}"><i class="bi bi-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="retour">
+    <a href="{% url 'parametrage-gc' %}">
+        <button type="button" class="btn btn-dark">
+            <i class="bi bi-arrow-left"></i>
+            <span>Retour aux Paramètres</span>
+        </button>
+    </a>
+</div>
 
 {% endblock content %}
