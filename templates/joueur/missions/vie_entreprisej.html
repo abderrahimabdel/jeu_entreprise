@@ -1,20 +1,17 @@
-{% extends "home.html" %}
+{% extends "missions.html" %}
 
 
 
 {% block content %}
 
 
-<div style="float: right;">
-    <p>temps restant:</p>
-    <div id="temps"></div>
-</div>
+
 <form action="" method="post">
     {% csrf_token %}
     <p>{{enonce}}</p>
   
     <br>  
-    <button type="submit">valider</button>
+    <button type="submit" class="submit-btn">Valider</button>
 </form>
 
 

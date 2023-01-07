@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'jouer.css' %}">
+
+    <script>var temps = "{{ temps }}"
+        console.log(temps);
+    </script>
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{% static 'joueur.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <title>Jeu d'entreprise</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <header>
+        <h1 style="float: left;">Jeu gere</h1>
+        <div style="display: inline-block; text-align:center;">
+            <div class="player-name">Nom du joueur : {{joueur}}</div>
+            <div class="player-points">Points: {{joueur.points}}</div>
+            <div>
+                <p>Nombre de points de la mission : 
+                    <span id="nb-points">{{nbre_points}}</span>
+                </p>
+            </div>
+            <div class="timer">
+                Temps restant : <span id="temps"></span>
+            </div>
+        </div>
+        <div style="float: right;"><a href="{% url 'logout' %}">Logout</a></div>
+    </header>
+    <div class="quiz-question">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import permission_required, login_required
 
 from django.shortcuts import render, redirect
 
-from base.models import Client, Fournisseur, GestioncM, Joueur, Produit, QuizzM, VEntrepriseM, Mission
+from base.models import Choix, Client, Fournisseur, GestioncM, Joueur, Produit, QuizzM, VEntrepriseM, Mission
 
 from base.forms import createChoixForm, createClientForm, createFournisseurForm, createGestionComForm, createProduitForm, createQuizzForm, createPlayerForm, createVEntrepriseForm
 
@@ -22,6 +22,8 @@ def afficherM(request):
     q = request.GET.get("q")
     missions = Mission.objects.all()
     types = ["quizz", "vie d'entreprise", "gestion-commerciale"]
+    types += list(map(lambda x:x.choix,Choix.objects.all()))
+    types = list(set(types))
     if q:
         missions = Mission.objects.filter(type=q)
     

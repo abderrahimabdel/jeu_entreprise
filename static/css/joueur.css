@@ -1,0 +1,58 @@
+body {
+    font-family: sans-serif;
+    background-image: url("main_background.jpeg");
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+  }
+  h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  .user-info {
+    font-size: 16px;
+  }
+  main {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+  }
+  .game-title {
+    font-size: 32px;
+    margin: 0 0 20px;
+  }
+  .game-description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+  }
+  .start-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    cursor: pointer;
+  }
+  img {
+    display: block;
+    width: 30%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .start-button a{
+    color: #fff;
+    text-decoration: none;
+  }

@@ -104,6 +104,10 @@ a{
     margin: 10px;
 }
 
+.object-info input[type=text]{
+    width:440px;
+}
+
 .label-info {
     width: 250px;
 }
@@ -137,3 +141,4 @@ a{
 #supprimer span{
     font-size: 20px;
 }
+

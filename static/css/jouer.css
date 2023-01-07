@@ -1,0 +1,61 @@
+body {
+    background-color: #f3f3f3;
+    font-family: Arial, sans-serif;
+    background-image: url("jouer_background.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header {
+text-align: center;
+padding: 20px;
+background-color: #333;
+color: white;
+}
+
+.quiz-question {
+padding: 20px;
+background-color: white;
+border: 1px solid #ccc;
+margin: 90px;
+width: 50%;
+}
+.question {
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 15px;
+}
+
+.answers {
+list-style-type: none;
+padding: 0;
+margin: 0;
+}
+
+.answers div {
+margin-bottom: 10px;
+}
+
+.answers input[type="radio"] {
+margin-right: 5px;
+}
+
+.timer {
+margin-top: 15px;
+font-size: 16px;
+}
+
+.submit-btn {
+display: block;
+margin: auto;
+padding: 10px 15px;
+font-size: 16px;
+background-color: #333;
+color: #fff;
+border: none;
+cursor: pointer;
+}
+
+.submit-btn:hover {
+background-color: #666;
+}

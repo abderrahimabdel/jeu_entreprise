@@ -1,11 +1,25 @@
 {% extends "home.html" %}
 {% block content %}
-<button><a href="jouer/1">
-    {% if commencer %}
-        commencer le jeu
-    {% else %}
-        continuer le jeu
-    {% endif %}
-        </a></button>
+{% load static %}
+
+
+<img src="{% static 'jeu_gere.jpeg' %}">
+<main>
+    <h2 class="game-title">Bonjour, et bienvenue dans notre jeu de gestion d'entreprise!</h2>
+    <p class="game-description">
+      Vous tester vos connaissances et compétances sur les domaines qui vous sont enseignés. <br>
+      Répondez et challengez vous!
+    </p>
+    <button class="start-button">
+        <a href="jouer/1">
+            {% if commencer %}
+                Commencer le jeu
+            {% else %}
+                Continuer le jeu
+            {% endif %}
+        </a>
+    </button>
+</main>
+
 
 {% endblock %}

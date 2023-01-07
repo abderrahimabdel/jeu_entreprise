@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'joueur.css' %}">
     <!-- jquery -->
-    {% load static %}
-    <script>var temps = "{{ temps }}"
-        console.log(temps);
-    </script>
-    <script>
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-        }
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="{% static 'joueur.js' %}" defer></script>
+    
     <title>jeu entreprise</title>
 </head>
 <body>
-    <h1>jeu entreprise</h1>
-    <ul>
-        <li>joueur : {{joueur}}</li>
-        <li>points : {{joueur.points}}</li>
-    </ul>
-    <div style="float: right;"><a href="{% url 'logout' %}">logout</a></div>
+    
+
+    <header>
+        <h1>Jeu gere</h1>
+        <div class="user-info">
+          Nom du joueur: <span id="player-name">{{joueur}}</span> <br>
+          Points gagnés: <span id="player-points">{{joueur.points}}</span>
+
+        </div>
+        <div style="float: right;"><a href="{% url 'logout' %}">logout</a></div>
+    </header>
+
     {% block content %}
 
     {% endblock %}

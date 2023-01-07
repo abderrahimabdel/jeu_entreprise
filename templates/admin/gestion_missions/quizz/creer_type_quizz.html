@@ -2,15 +2,22 @@
 
 {% block content %}
 
-<h3>Créer un type de Quizz</h3>
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
+<div class="home-section-title">
+    <h3>Créer un type de Quizz</h3>
+</div>
 
-    <button class="btn btn--main" type="submit">Enregistrer le type du quizz</button>   
-</form>
+<div class="create-object">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
 
-<a href="{% url 'creer-quizz' %}">revenir</a>
+        <button class="btn btn-success" type="submit">Enregistrer le type du quizz</button>   
+    </form>
+</div>
+
+<a href="{% url 'creer-quizz' %}">
+    <button type="button" class="btn btn-dark">Revenir</button>
+</a>
 
 
 {% endblock content %}

@@ -4,11 +4,24 @@
 
 {% block content %}
 
-{% if gagne%}
-    <p>félicitations vous avez gagné</p>
-    <a href="{% url 'jouer' %}">rejouer</a>
-{% else %}
-    <p>malheuresement vous avez perdu</p>
-    <a href="{% url 'jouer' %}">rejouer</a>
-{% endif %}
+
+{% load static %}
+<img src="{% static 'jeu_gere.jpeg' %}">
+<main>
+
+    {% if gagne %}
+        <p  class="game-description">
+            Félicitations vous avez gagné
+        </p>
+
+    {% else %}
+        <p class="game-description">
+            Malheuresement vous avez perdu
+        </p>
+        
+    {% endif %}
+
+    <a href="{% url 'generer' %}"><button  class="start-button">Rejouer</button></a>
+
+</main>
 {% endblock %}

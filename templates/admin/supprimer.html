@@ -5,7 +5,7 @@
     <form action="" method="post">
         {% csrf_token %}
         <span> Voulez‑vous vraiment supprimer <b>{{joueur}}</b></span> <br>
-        <button type="button" class="btn btn-danger">oui</button>
+        <button type="submit" class="btn btn-danger">oui</button>
     </form>
 </div>
 <a href="{{request.META.HTTP_REFERER }}"><button type="button" class="btn btn-dark">revenir</button></a>

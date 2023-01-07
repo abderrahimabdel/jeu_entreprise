@@ -74,6 +74,7 @@ class Joueur(AbstractUser):
 
     def possible_play(self):
         n_p_missions = self.possible_missions().all().count()
+        
         return (n_p_missions != 0) and (self.missions_passe.all().count() < self.nombre_de_missions)
 
     def update_mission(self):
@@ -82,6 +83,7 @@ class Joueur(AbstractUser):
         to_include = list(map(lambda x:x.choix,to_include))
         include_ventreprise = "vie d'entreprise" in to_include
 
+        
         if (missions_passe.count() % 5==0) and (missions_passe.count() > 0) and (include_ventreprise):
             missions = Mission.objects.filter(type="vie d'entreprise")
         else:

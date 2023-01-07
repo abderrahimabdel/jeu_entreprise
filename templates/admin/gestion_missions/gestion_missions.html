@@ -6,9 +6,9 @@
     <h3>Gestion des missions</h3>
 </div>
 <div class="buttons">
-    <a href="{% url 'afficher-missions' %}"><button type="button" class="btn btn-primary flex-button">afficher les missions</button></a> <br>
+    <a href="{% url 'afficher-missions' %}"><button type="button" class="btn btn-primary flex-button">Afficher les missions</button></a> <br>
     {% for type in types %}
-        <a href="missions/creer-{{type}}"><button type="button" class="btn btn-primary flex-button">créer une mission de type {{type}}</button></a>
+        <a href="missions/creer-{{type}}"><button type="button" class="btn btn-primary flex-button">Créer une mission de type {{type}}</button></a>
         <br>
     {% endfor %}
     <a href="{% url 'parametrage-gc' %}"><button type="button" class="btn btn-primary flex-button">Paramétrage Mission gestion commerciale</button></a>

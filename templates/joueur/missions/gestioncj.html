@@ -1,32 +1,31 @@
-{% extends "home.html" %}
+{% extends "missions.html" %}
 
 
 
 {% block content %}
 
 
-<div style="float: right;">
-    <div>
-        <p>temps restant:</p>
-        <div id="temps"></div>
-    </div>
-    <div>
-        <p>nombre de points de la mission:</p>
-        <div id="nb-points">{{nbre_points}}</div>
-    </div>
-</div>
+<style>
+    .listings{
+        text-align: center;
+    margin: 10px;
+    }
+    .listings button{
+        margin: 10px;
+    }
+</style>
 <form action="" method="post">
     {% csrf_token %}
     <p>{{mission.enonce|linebreaks}}</p>
     
     <br> 
-    <label for="reponse">reponse</label>
-    <input type="text" name="reponse">
-    <button type="submit">valider</button>
+    <label for="reponse"><b>Réponse</b></label>
+    <input type="text" name="reponse" style="width: 250px; height: 20px; margin: 20px;">
+    <button type="submit"  class="submit-btn">Valider</button>
 </form>
-
-<a href="/listing/fournisseurs">voir listing fournisseurs</a>
-<a href="/listing/clients">voir listing clients</a>
-<a href="/listing/produits">voir listing produits</a>
-
+<div class="listings">
+    <a href="/listing/fournisseurs"><button class="btn btn-dark">Voir listing fournisseurs</button></a>
+    <a href="/listing/clients"><button class="btn btn-dark">Voir listing clients</button> </a>
+    <a href="/listing/produits"><button class="btn btn-dark">Voir listing produits</button> </a>
+</div>
 {% endblock %}
