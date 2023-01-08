@@ -56,7 +56,7 @@ def generer(request):
 
 @login_required(login_url='/login/')
 def resultat(request):
-    if request.META.get('HTTP_REFERER') == "http://127.0.0.1:8000/jouer/1":
+    if "jouer/1" in request.META.get('HTTP_REFERER'):
         gagne = request.session["gagne"]
         points = request.session["points"]
         return render(request, "resultat.html", context= {"gagne":gagne, "points": points, "joueur" : request.user})
